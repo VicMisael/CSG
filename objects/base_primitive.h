@@ -6,7 +6,9 @@
 #define CSG_BASE_PRIMITIVE_H
 
 
-class base_primitive {
+#include "../strippedRayTracer/RayTracerRedone/tracer/objects/VirtualObject.h"
+
+class base_primitive: public VirtualObject {
 
 };
 
