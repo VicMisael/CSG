@@ -7,8 +7,9 @@
 
 
 #include <glm/vec3.hpp>
+#include "base_primitive.h"
 
-class cylinder {
+class cylinder: public base_primitive{
     glm::vec3 axis_; // cylinder axis_
     glm::vec3 base_;
     float height_;
