@@ -40,6 +40,8 @@ namespace csg_tree {
 
         static boolean_operation_node csg_intersection(const std::shared_ptr<node> &left, const std::shared_ptr<node> &right);
 
+        static boolean_operation_node csg_difference(const std::shared_ptr<node> &left, const std::shared_ptr<node> &right);
+
     private:
         boolean_operation_node(const std::shared_ptr<node> &left,
                                const std::shared_ptr<node> &right, boolean_operation_type operation) :

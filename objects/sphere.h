@@ -10,6 +10,10 @@
 #include "base_primitive.h"
 
 class sphere:public base_primitive {
+public:
+    sphere(const glm::vec3 &center, float radius);
+
+private:
     glm::vec3 center;
     float radius;
 };

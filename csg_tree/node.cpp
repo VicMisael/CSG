@@ -17,3 +17,8 @@ csg_tree::boolean_operation_node csg_tree::boolean_operation_node::csg_intersect
                                                                                     const std::shared_ptr<node> &right) {
     return {left, right, csg_tree::INTERSECTION};
 }
+
+csg_tree::boolean_operation_node csg_tree::boolean_operation_node::csg_difference(const std::shared_ptr<node> &left,
+                                                                                  const std::shared_ptr<node> &right) {
+    return {left, right, csg_tree::DIFFERENCE};
+}

@@ -3,3 +3,5 @@
 //
 
 #include "sphere.h"
+
+sphere::sphere(const glm::vec3 &center, float radius) : center(center), radius(radius) {}
