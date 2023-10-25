@@ -6,10 +6,11 @@
 #define CSG_EDGE_H
 
 #include <glm/vec3.hpp>
+#include "../strippedRayTracer/RayTracerRedone/tracer/scene/Ray.h"
 
 namespace csg_tree {
 
-    class edge {
+    struct edge {
         glm::vec3 min;
         glm::vec3 max;
     };

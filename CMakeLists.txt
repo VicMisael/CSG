@@ -21,6 +21,10 @@ add_executable(CSG main.cpp
         objects/block.h
         objects/cylinder.cpp
         objects/cylinder.h
+        csg_tree/utils.h
+        csg_tree/utils.h
+        csg_tree/utils.cpp
+        csg_tree/utils.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} glm::glm)
