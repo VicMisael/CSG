@@ -10,7 +10,6 @@
 #include "../strippedRayTracer/RayTracerRedone/tracer/scene/materials/Phong.h"
 #include "../csg_tree/edge.h"
 
-class Edge;
 
 class base_primitive : public VirtualObject {
 public:
