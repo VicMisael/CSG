@@ -10,6 +10,15 @@
 
 class block: public base_primitive {
 
+public:
+    bool classify(csg_tree::edge edge) override;
+
+    std::optional<intersectionRec> intersects(const Ray &ray) const override;
+
+
+
+    float getArea() const override;
+
 };
 
 

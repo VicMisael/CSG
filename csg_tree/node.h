@@ -12,16 +12,12 @@ namespace csg_tree {
     class node {
     public:
         [[nodiscard]] virtual const node_type getType() const = 0;
-    };
 
-    class primitive_node : public node {
-    public:
-        explicit primitive_node(const std::shared_ptr<base_primitive> &primitive);
+        [[nodiscard]] virtual bool intersects(const Ray &ray) const = 0;
 
-        [[nodiscard]] const node_type getType() const override;
+        [[nodiscard]] virtual edge classify(edge _edge) const = 0;
 
-    private:
-        std::shared_ptr<base_primitive> primitive;
+        virtual std::optional<intersectionRec> intersects(const Ray &ray) = 0;
     };
 
     class with_children : public node {
@@ -34,27 +30,7 @@ namespace csg_tree {
 
     };
 
-    class boolean_operation_node : public with_children {
-    public:
-        static boolean_operation_node csg_union(const std::shared_ptr<node> &left, const std::shared_ptr<node> &right);
 
-        static boolean_operation_node csg_intersection(const std::shared_ptr<node> &left, const std::shared_ptr<node> &right);
-
-        static boolean_operation_node csg_difference(const std::shared_ptr<node> &left, const std::shared_ptr<node> &right);
-
-    private:
-        boolean_operation_node(const std::shared_ptr<node> &left,
-                               const std::shared_ptr<node> &right, boolean_operation_type operation) :
-                with_children(left, right), operation(operation) {}
-
-        [[nodiscard]] const node_type getType() const override {
-            return BOOLEAN;
-        }
-
-    private:
-        boolean_operation_type operation;
-
-    };
 }
 
 

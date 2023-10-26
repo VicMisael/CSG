@@ -25,6 +25,12 @@ add_executable(CSG main.cpp
         csg_tree/utils.h
         csg_tree/utils.cpp
         csg_tree/utils.cpp
+        csg_tree/root.cpp
+        csg_tree/root.h
+        csg_tree/primitive_node.cpp
+        csg_tree/primitive_node.h
+        csg_tree/boolean_operation_node.cpp
+        csg_tree/boolean_operation_node.h
 )
 
 target_link_libraries(${PROJECT_NAME} glm::glm)
