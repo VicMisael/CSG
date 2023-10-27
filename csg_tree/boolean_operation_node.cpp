@@ -23,6 +23,34 @@ namespace csg_tree {
         return result;
     }
 
+    std::vector<rt_utils::csg_tree_intersection> intersectionOperation(
+            const std::vector<rt_utils::csg_tree_intersection> &leftIntersections,
+            const std::vector<rt_utils::csg_tree_intersection> &rightIntersections) {
+
+        std::vector<rt_utils::csg_tree_intersection> result;
+        bool insideLeft = false;
+        bool insideRight = false;
+        size_t i = 0, j = 0;
+
+        while (i < leftIntersections.size() && j < rightIntersections.size()) {
+            if (leftIntersections[i].t < rightIntersections[j].t) {
+                insideLeft = leftIntersections[i].entry;
+                if (insideLeft && insideRight) {
+                    result.push_back(leftIntersections[i]);
+                }
+                i++;
+            } else {
+                insideRight = rightIntersections[j].entry;
+                if (insideRight && insideLeft) {
+                    result.push_back(rightIntersections[j]);
+                }
+                j++;
+            }
+        }
+
+        return result;
+    }
+
 
     csg_tree::boolean_operation_node
     csg_tree::boolean_operation_node::csg_union(const std::shared_ptr<node> &left, const std::shared_ptr<node> &right) {
@@ -53,8 +81,10 @@ namespace csg_tree {
             case UNION:
                 return unionOperation(leftIntersections, rightIntersections);
             case INTERSECTION:
+                return intersectionOperation(leftIntersections, rightIntersections);
                 break;
             case DIFFERENCE:
+                return intersectionOperation(leftIntersections, rightIntersections);
                 break;
         }
         return result;
