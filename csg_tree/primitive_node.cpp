@@ -13,7 +13,7 @@ namespace csg_tree {
         return primitive->intersects(ray).has_value();
     }
 
-    edge primitive_node::classify(const edge _edge) const {
+    const std::vector<edge> primitive_node::classify(const edge _edge) const {
         return primitive->classify(_edge);
     }
 

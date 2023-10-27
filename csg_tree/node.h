@@ -15,7 +15,7 @@ namespace csg_tree {
 
         [[nodiscard]] virtual bool intersects(const Ray &ray) const = 0;
 
-        [[nodiscard]] virtual edge classify(edge _edge) const = 0;
+        [[nodiscard]] virtual const std::vector<edge> classify(const edge _edge) const = 0;
 
         virtual std::optional<intersectionRec> intersects(const Ray &ray) = 0;
     };

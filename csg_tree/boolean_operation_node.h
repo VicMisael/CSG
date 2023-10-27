@@ -21,9 +21,10 @@ namespace csg_tree {
 
         [[nodiscard]] bool intersects(const Ray &ray) const override;
 
-        [[nodiscard]] edge classify(const edge _edge) const override;
 
         std::optional<intersectionRec> intersects(const Ray &ray) override;
+
+        [[nodiscard]] const std::vector<edge> classify(const edge _edge) const override;
 
     private:
         boolean_operation_node(const std::shared_ptr<node> &left,

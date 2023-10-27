@@ -5,12 +5,14 @@
 #include "boolean_operation_node.h"
 
 namespace csg_tree {
-    csg_tree::boolean_operation_node csg_tree::boolean_operation_node::csg_union(const std::shared_ptr<node> &left, const std::shared_ptr<node> &right) {
+    csg_tree::boolean_operation_node
+    csg_tree::boolean_operation_node::csg_union(const std::shared_ptr<node> &left, const std::shared_ptr<node> &right) {
         return {left, right, csg_tree::UNION};
     }
 
-    csg_tree::boolean_operation_node csg_tree::boolean_operation_node::csg_intersection(const std::shared_ptr<node> &left,
-                                                                                        const std::shared_ptr<node> &right) {
+    csg_tree::boolean_operation_node
+    csg_tree::boolean_operation_node::csg_intersection(const std::shared_ptr<node> &left,
+                                                       const std::shared_ptr<node> &right) {
         return {left, right, csg_tree::INTERSECTION};
     }
 
@@ -20,14 +22,37 @@ namespace csg_tree {
     }
 
     bool csg_tree::boolean_operation_node::intersects(const Ray &ray) const {
-        return false;
+        switch (this->operation) {
+            case UNION:
+                this->left->intersects(ray) || this->right->intersects(ray);
+                break;
+            case INTERSECTION:
+                this->left->intersects(ray) && this->right->intersects(ray);
+                break;
+            case DIFFERENCE:
+                this->left->intersects(ray) && !this->right->intersects(ray);
+                break;
+        }
     }
 
-    csg_tree::edge csg_tree::boolean_operation_node::classify(const csg_tree::edge _edge) const {
-        return edge();
-    }
 
     std::optional<intersectionRec> csg_tree::boolean_operation_node::intersects(const Ray &ray) {
-        return std::optional<intersectionRec>();
+        std::optional<intersectionRec> left = this->left->intersects(ray);
+        std::optional<intersectionRec> right = this->left->intersects(ray);
+        switch (this->operation) {
+            case UNION: {
+
+            }
+                break;
+            case INTERSECTION:
+                break;
+            case DIFFERENCE:
+                break;
+        }
+        return {};
+    }
+
+    const std::vector<edge> boolean_operation_node::classify(const edge _edge) const {
+        return std::vector<edge>();
     }
 } // csg_tree

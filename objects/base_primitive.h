@@ -13,7 +13,7 @@
 
 class base_primitive : public VirtualObject {
 public:
-    virtual csg_tree::edge classify(const csg_tree::edge edge) = 0;
+    virtual std::vector<csg_tree::edge> classify(csg_tree::edge edge) = 0;
 
 protected:
     base_primitive() : VirtualObject(std::make_shared<Phong>(ColorVec(0.5, 0.5, 0.5), 1, 1, 25)) {}

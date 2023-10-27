@@ -9,15 +9,17 @@
 #include <glm/vec3.hpp>
 #include "base_primitive.h"
 
-class sphere:public base_primitive {
+class sphere : public base_primitive {
 public:
     sphere(const glm::vec3 &center, float radius);
 
-    std::optional<intersectionRec> intersects(const Ray &ray) const override;
+    [[nodiscard]] std::optional<intersectionRec> intersects(const Ray &ray) const override;
 
     float getArea() const override;
 
-    csg_tree::edge classify(const csg_tree::edge edge) override;
+    std::vector<csg_tree::edge> classify(const csg_tree::edge edge) override;
+
+    void transform(Matrix4x4 m) override;
 
 private:
     glm::vec3 center;

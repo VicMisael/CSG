@@ -19,8 +19,6 @@ add_executable(CSG main.cpp
         objects/sphere.h
         objects/block.cpp
         objects/block.h
-        objects/cylinder.cpp
-        objects/cylinder.h
         csg_tree/utils.h
         csg_tree/utils.h
         csg_tree/utils.cpp
