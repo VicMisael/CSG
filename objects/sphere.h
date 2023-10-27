@@ -17,7 +17,7 @@ public:
 
     float getArea() const override;
 
-    std::vector<csg_tree::edge> classify(const csg_tree::edge edge) override;
+    csg_tree::classification classify(const csg_tree::edge edge) override;
 
     void transform(Matrix4x4 m) override;
 

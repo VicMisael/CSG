@@ -27,7 +27,6 @@ std::tuple<float, float> get_sphere_uv(const Point3 p) {
 }
 
 
-
 std::optional<intersectionRec> sphere::intersects(const Ray &ray) const {
     const Vector3 ray_direction = ray.direction;
     const float &radius = this->radius;
@@ -54,7 +53,7 @@ float sphere::getArea() const {
     return 0;
 }
 
-std::vector<csg_tree::edge> sphere::classify(const csg_tree::edge edge) {
+csg_tree::classification sphere::classify(const csg_tree::edge edge) {
 
     const Vector3 ray_direction = edge.max - edge.min;
 
@@ -66,18 +65,23 @@ std::vector<csg_tree::edge> sphere::classify(const csg_tree::edge edge) {
     const float c = glm::dot(origin_minus_center, origin_minus_center) - radius * radius;
     const float disc = b * b - 4.0f * a * c;
     if (disc < 0.0f) {
-        return {};
+        return {{},
+                {},
+                {edge}};
     }
 
-    const float t1 = (-b + sqrtf(disc)) / (2.0f * a);
-    const float t2 = (-b - sqrtf(disc)) / (2.0f * a);
+    float t1 = (-b + sqrtf(disc)) / (2.0f * a);
+    float t2 = (-b - sqrtf(disc)) / (2.0f * a);
     const glm::vec3 directionNormalized = glm::normalize(ray_direction);
-    std::vector<csg_tree::edge> output;
-    if (t1 < t2) {
-        output.push_back(csg_tree::edge{edge.min + t1 * directionNormalized, edge.min + directionNormalized * t2});
-    }
-    output.push_back(csg_tree::edge{edge.min + t2 * directionNormalized, edge.min + directionNormalized * t1});
-    return output;
+
+    if (t1 >= t2) {
+        std::swap(t1, t2);
+    };
+    auto EinS = csg_tree::edge{edge.min + t1 * directionNormalized, edge.min + directionNormalized * t2};
+    auto EoutS1 = csg_tree::edge{edge.min, EinS.min};
+    auto EoutS2 = csg_tree::edge(EinS.min, edge.max);
+
+    return {{EinS}, {}, {EoutS1, EoutS2}};
 }
 
 void sphere::transform(Matrix4x4 m) {

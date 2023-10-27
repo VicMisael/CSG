@@ -38,11 +38,9 @@ namespace csg_tree {
 
     std::optional<intersectionRec> csg_tree::boolean_operation_node::intersects(const Ray &ray) {
         std::optional<intersectionRec> left = this->left->intersects(ray);
-        std::optional<intersectionRec> right = this->left->intersects(ray);
+        std::optional<intersectionRec> right = this->right->intersects(ray);
         switch (this->operation) {
-            case UNION: {
-
-            }
+            case UNION:
                 break;
             case INTERSECTION:
                 break;
@@ -52,7 +50,8 @@ namespace csg_tree {
         return {};
     }
 
-    const std::vector<edge> boolean_operation_node::classify(const edge _edge) const {
-        return std::vector<edge>();
+    const classification boolean_operation_node::classify(const edge _edge) const {
+        return classification();
     }
+
 } // csg_tree

@@ -23,7 +23,7 @@ public:
 
     [[nodiscard]] std::optional<intersectionRec> intersects(const Ray &ray) const override;
 
-    std::vector<csg_tree::edge> classify(csg_tree::edge edge) override;
+    csg_tree::classification classify(csg_tree::edge edge) override;
 
     void transform(Matrix4x4 m) override;
 

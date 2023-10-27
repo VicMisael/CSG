@@ -81,16 +81,24 @@ std::optional<intersectionRec> block::intersects(const Ray &ray) const {
     return intersectionRec{t_hit, hitPoint, normal, this->material, u, v};
 }
 
-std::vector<csg_tree::edge> block::classify(csg_tree::edge edge) {
+csg_tree::classification block::classify(csg_tree::edge edge) {
     float t_max = glm::length(edge.max - edge.min);
     float t_min = 0;
     auto toMax = glm::normalize(edge.max - edge.min);
     Ray ray(edge.min, glm::normalize(edge.max - edge.min));
-    std::vector<csg_tree::edge> output;
+
+
     if (::intersects(ray, t_min, t_max, min, max)) {
-        output.push_back(csg_tree::edge{edge.min + t_min * toMax, edge.min + t_max * toMax});
+        auto EinS = csg_tree::edge{edge.min + t_min * toMax, edge.min + t_max * toMax};
+        auto EoutS1 = csg_tree::edge{edge.min, EinS.min};
+        auto EoutS2 = csg_tree::edge(EinS.min, edge.max);
+        return {{EinS},
+                {},
+                {EoutS1, EoutS2}};
     }
-    return output;
+    return {{},
+            {},
+            {edge}};
 }
 
 void block::transform(glm::mat4x4 m) {

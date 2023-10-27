@@ -5,7 +5,7 @@
 #include "root.h"
 
 namespace csg_tree {
-    std::vector<csg_tree::edge> root::classify(csg_tree::edge edge) {
+    classification root::classify(csg_tree::edge edge) {
         return this->root_node->classify(edge);
     }
 

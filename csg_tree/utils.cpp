@@ -9,3 +9,5 @@ csg_tree::edge csg_tree::utils::from_ray(const Ray &ray) {
     return csg_tree::edge{min, max};
 }
 
+
+

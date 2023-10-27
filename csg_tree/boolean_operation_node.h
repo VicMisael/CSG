@@ -24,11 +24,12 @@ namespace csg_tree {
 
         std::optional<intersectionRec> intersects(const Ray &ray) override;
 
-        [[nodiscard]] const std::vector<edge> classify(const edge _edge) const override;
+        [[nodiscard]] const classification classify(const edge _edge) const override;
 
     private:
         boolean_operation_node(const std::shared_ptr<node> &left,
-                               const std::shared_ptr<node> &right, boolean_operation_type operation) :
+                               const std::shared_ptr<node> &right,
+                               boolean_operation_type operation) :
                 with_children(left, right), operation(operation) {}
 
         [[nodiscard]] const node_type getType() const override {

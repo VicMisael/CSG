@@ -12,7 +12,7 @@ namespace csg_tree {
 
     class root : public VirtualObject {
     public:
-        std::vector<csg_tree::edge> classify(csg_tree::edge edge);
+        classification classify(csg_tree::edge edge);
 
         [[nodiscard]] std::optional<intersectionRec> intersects(const Ray &ray) const override;
 
