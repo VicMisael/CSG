@@ -21,7 +21,7 @@ public:
 
     };
 
-    [[nodiscard]] std::optional<intersectionRec> intersects(const Ray &ray) const override;
+    [[nodiscard]] std::vector<rt_utils::csg_tree_intersection>  intersects(const Ray &ray) const override;
 
     csg_tree::classification classify(csg_tree::edge edge) override;
 

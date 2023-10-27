@@ -19,10 +19,7 @@ namespace csg_tree {
         static boolean_operation_node
         csg_difference(const std::shared_ptr<node> &left, const std::shared_ptr<node> &right);
 
-        [[nodiscard]] bool intersects(const Ray &ray) const override;
-
-
-        std::optional<intersectionRec> intersects(const Ray &ray) override;
+        std::vector<rt_utils::csg_tree_intersection> intersects(const Ray &ray) override;
 
         [[nodiscard]] const classification classify(const edge _edge) const override;
 

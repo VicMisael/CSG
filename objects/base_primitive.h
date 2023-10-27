@@ -9,15 +9,23 @@
 #include "../strippedRayTracer/RayTracerRedone/tracer/objects/VirtualObject.h"
 #include "../strippedRayTracer/RayTracerRedone/tracer/scene/materials/Phong.h"
 #include "../csg_tree/edge.h"
+#include "rt_utils.h"
 
 
-class base_primitive : public VirtualObject {
+class base_primitive {
 public:
     virtual csg_tree::classification classify(csg_tree::edge edge) = 0;
 
-protected:
-    base_primitive() : VirtualObject(std::make_shared<Phong>(ColorVec(0.5, 0.5, 0.5), 1, 1, 25)) {}
+    virtual std::vector<rt_utils::csg_tree_intersection> intersects(const Ray &ray) const = 0;
 
+    virtual void transform(Matrix4x4 m) {};
+
+
+protected:
+
+    base_primitive() : material(std::make_shared<Phong>(ColorVec(0.5, 0.5, 0.5), 1, 1, 25)) {};
+
+    std::shared_ptr<Phong> material;
 };
 
 

@@ -13,9 +13,7 @@ class sphere : public base_primitive {
 public:
     sphere(const glm::vec3 &center, float radius);
 
-    [[nodiscard]] std::optional<intersectionRec> intersects(const Ray &ray) const override;
-
-    float getArea() const override;
+    [[nodiscard]] std::vector<rt_utils::csg_tree_intersection> intersects(const Ray &ray) const override;
 
     csg_tree::classification classify(const csg_tree::edge edge) override;
 

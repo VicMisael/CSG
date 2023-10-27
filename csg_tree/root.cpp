@@ -10,6 +10,6 @@ namespace csg_tree {
     }
 
     std::optional<intersectionRec> root::intersects(const Ray &ray) const {
-        this->root_node->intersects(ray);
+
     }
 } // csg_tree

@@ -15,12 +15,26 @@ namespace csg_tree {
     struct edge {
         glm::vec3 min;
         glm::vec3 max;
+        [[nodiscard]] bool isLessThan(const glm::vec3 &a, const glm::vec3 &b) const {
+            // Assuming z-order for comparison
+            return a.z < b.z || (a.z == b.z && (a.y < b.y || (a.y == b.y && a.x < b.x)));
+        }
+
+        [[nodiscard]] bool overlaps(const edge& other) const {
+            return !(isLessThan(max, other.min) || isLessThan(other.max, min));
+        }
     };
 
-    struct classification {
+    class classification {
+    public:
+        classification(const std::vector<edge> &einS, const std::vector<edge> &eoutS, edge E);
+        [[nodiscard]] std::vector<edge> getInEdges() const { return EinS; }
+
+    private:
         std::vector<edge> EinS;
-        std::vector<edge> EoutS;
-        std::vector<edge> EonS;
+        edge Edge;
+
+        void sort();
     };
 } // csg_tree
 

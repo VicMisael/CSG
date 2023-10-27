@@ -27,7 +27,7 @@ std::tuple<float, float> get_sphere_uv(const Point3 p) {
 }
 
 
-std::optional<intersectionRec> sphere::intersects(const Ray &ray) const {
+std::vector<rt_utils::csg_tree_intersection> sphere::intersects(const Ray &ray) const {
     const Vector3 ray_direction = ray.direction;
     const float &radius = this->radius;
     const Point3 &center = this->center;
@@ -42,20 +42,18 @@ std::optional<intersectionRec> sphere::intersects(const Ray &ray) const {
     const float t1 = (-b + sqrtf(disc)) / (2.0f * a);
     const float t2 = (-b - sqrtf(disc)) / (2.0f * a);
     const float closest = std::min(t1, t2);
-    const Vector3 closestPoint = (ray.point_at(closest));
-    const Vector3 normal = normalize(closestPoint - center);
+    const float exit = std::max(t1, t2);
+//    const Vector3 closestPoint = (ray.point_at(closest));
+//    const Vector3 normal = normalize(closestPoint - center);
     //const Vector3 normal= (origin_minus_center + closest * ray_direction) / radius;
-    const auto [u, v] = get_sphere_uv(normal);
-    return intersectionRec{closest, closestPoint, normal, material, u, v};
+    return {{t1, ray.point_at(closest), glm::normalize(closest - center), this->material, true},
+            {t2, ray.point_at(exit),    glm::normalize(exit - center),    this->material, false}};
 }
 
-float sphere::getArea() const {
-    return 0;
-}
 
 csg_tree::classification sphere::classify(const csg_tree::edge edge) {
 
-    const Vector3 ray_direction = edge.max - edge.min;
+    const Vector3 ray_direction = glm::normalize(edge.max - edge.min);
 
     const float &radius = this->radius;
     const Point3 &center = this->center;
@@ -66,8 +64,8 @@ csg_tree::classification sphere::classify(const csg_tree::edge edge) {
     const float disc = b * b - 4.0f * a * c;
     if (disc < 0.0f) {
         return {{},
-                {},
-                {edge}};
+                {edge},
+                edge};
     }
 
     float t1 = (-b + sqrtf(disc)) / (2.0f * a);
@@ -81,10 +79,11 @@ csg_tree::classification sphere::classify(const csg_tree::edge edge) {
     auto EoutS1 = csg_tree::edge{edge.min, EinS.min};
     auto EoutS2 = csg_tree::edge(EinS.min, edge.max);
 
-    return {{EinS}, {}, {EoutS1, EoutS2}};
+    return {{EinS},
+            {EoutS1, EoutS2},
+            edge};
 }
 
 void sphere::transform(Matrix4x4 m) {
-    VirtualObject::transform(m);
     center = Vector3(m * Vector4(center, 1));
 }
