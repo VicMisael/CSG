@@ -12,9 +12,13 @@ namespace csg_tree {
 
     class root : public VirtualObject {
     public:
+        explicit root(const std::shared_ptr<node> &rootNode);
+
         classification classify(csg_tree::edge edge);
 
         [[nodiscard]] std::optional<intersectionRec> intersects(const Ray &ray) const override;
+
+        float getArea() const override;
 
     private:
         std::shared_ptr<node> root_node;

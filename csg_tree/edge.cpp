@@ -19,7 +19,7 @@ bool isPointCBeforeD(const csg_tree::edge E, const glm::vec3 &C, const glm::vec3
 
 
 namespace csg_tree {
-    classification::classification(const std::vector<edge> &einS, const std::vector<edge> &eoutS, const edge E) :
+    classification::classification(const std::vector<edge> &einS, const edge E) :
             EinS(einS), Edge(E) {
         this->sort();
         // Sort based on the min member of the edge structure
@@ -32,5 +32,9 @@ namespace csg_tree {
             return isPointCBeforeD(E, a.min, b.max);
         });
 
+    }
+
+    const edge &classification::getEdge() const {
+        return Edge;
     }
 } // csg_tree

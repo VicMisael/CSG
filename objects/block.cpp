@@ -95,11 +95,9 @@ csg_tree::classification block::classify(csg_tree::edge edge) {
         auto EoutS1 = csg_tree::edge{edge.min, EinS.min};
         auto EoutS2 = csg_tree::edge(EinS.min, edge.max);
         return {{EinS},
-                {EoutS1, EoutS2},
                 edge};
     }
     return {{},
-            {edge},
             edge};
 }
 

@@ -1,15 +1,46 @@
-#include <iostream>
 #include "csg_tree/edge.h"
-#include "csg_tree/utils.h"
 #include "objects/sphere.h"
+#include "csg_tree/root.h"
+#include "csg_tree/primitive_node.h"
+#include "strippedRayTracer/RayTracerRedone/RayTracerRedone.cpp"
+#include "objects/block.h"
+#include "csg_tree/boolean_operation_node.h"
 
 int main() {
-    sphere esferateste(glm::vec3(0, 10, 15), 150);
-    auto dir = glm::vec3(0, 10, 15) - glm::vec3(15, 15, -200);
-    float len = glm::length(dir);
-    Ray ray(glm::vec3(15, 15, -200), glm::normalize(dir));
-    auto result = esferateste.intersects(ray);
-    auto edge = csg_tree::utils::from_ray(ray);
-    auto classification = esferateste.classify(edge);
+    const auto bloco = std::make_shared<block>(glm::vec3(0, 10, 15), 45);
+    auto primitiveNode = std::make_shared<csg_tree::primitive_node>(bloco);
+    auto raiz = std::make_shared<csg_tree::root>(primitiveNode);
+
+    //Raytracer::render1(raiz, "Teste1", 1000, 1000, 5);
+
+    const auto esfera = std::make_shared<sphere>(glm::vec3(0, 30, 15), 65);
+    auto primitiveNode1 = std::make_shared<csg_tree::primitive_node>(esfera);
+    auto raiz2 = std::make_shared<csg_tree::root>(primitiveNode1);
+
+    //Raytracer::render1(raiz2, "Teste2", 1000, 1000, 5);
+
+    auto unionNode = std::make_shared<csg_tree::boolean_operation_node>(
+            csg_tree::boolean_operation_node::csg_union(primitiveNode, primitiveNode1));
+
+    auto raiz3 = std::make_shared<csg_tree::root>(unionNode);
+    Raytracer::render1(raiz3, "union", 600, 600, 20);
+
+    auto intersectionNode = std::make_shared<csg_tree::boolean_operation_node>(
+            csg_tree::boolean_operation_node::csg_intersection(primitiveNode, primitiveNode1));
+
+    auto raiz4 = std::make_shared<csg_tree::root>(intersectionNode);
+    Raytracer::render1(raiz4, "intersection", 600, 600, 20);
+
+    const auto esfera2 = std::make_shared<sphere>(glm::vec3(0, 30, -25), 30);
+    auto primitiveNode2 = std::make_shared<csg_tree::primitive_node>(esfera2);
+    auto testeSsfere = std::make_shared<csg_tree::root>(primitiveNode2);
+    Raytracer::render1(testeSsfere, "testeSsfere", 600, 600, 20);
+    auto differenceNode = std::make_shared<csg_tree::boolean_operation_node>(
+            csg_tree::boolean_operation_node::csg_difference(primitiveNode, primitiveNode2));
+
+    auto raiz5 = std::make_shared<csg_tree::root>(differenceNode);
+    Raytracer::render1(raiz5, "difference", 600, 600, 20);
+
+
     return 0;
 }

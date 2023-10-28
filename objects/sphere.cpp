@@ -8,7 +8,7 @@
 
 sphere::sphere(const glm::vec3 &center, float radius) : center(center), radius(radius) {}
 
-std::tuple<float, float> get_sphere_uv(const Point3 p) {
+static std::tuple<float, float> get_sphere_uv(const Point3 p) {
     // p: a given point on the sphere of radius one, centered at the origin.
     // u: returned value [0,1] of angle around the Y axis from X=-1.
     // v: returned value [0,1] of angle from Y=-1 to Y=+1.
@@ -46,8 +46,10 @@ std::vector<rt_utils::csg_tree_intersection> sphere::intersects(const Ray &ray) 
 //    const Vector3 closestPoint = (ray.point_at(closest));
 //    const Vector3 normal = normalize(closestPoint - center);
     //const Vector3 normal= (origin_minus_center + closest * ray_direction) / radius;
-    return {{t1, ray.point_at(closest), glm::normalize(closest - center), this->material, true},
-            {t2, ray.point_at(exit),    glm::normalize(exit - center),    this->material, false}};
+    const auto closestPoint = ray.point_at(closest);
+    const auto furthestPoint = ray.point_at(exit);
+    return {{closest, closestPoint,  glm::normalize(closestPoint - center),  this->material, true},
+            {exit,    furthestPoint, glm::normalize(furthestPoint - center), this->material, false}};
 }
 
 
@@ -64,7 +66,6 @@ csg_tree::classification sphere::classify(const csg_tree::edge edge) {
     const float disc = b * b - 4.0f * a * c;
     if (disc < 0.0f) {
         return {{},
-                {edge},
                 edge};
     }
 
@@ -76,11 +77,8 @@ csg_tree::classification sphere::classify(const csg_tree::edge edge) {
         std::swap(t1, t2);
     };
     auto EinS = csg_tree::edge{edge.min + t1 * directionNormalized, edge.min + directionNormalized * t2};
-    auto EoutS1 = csg_tree::edge{edge.min, EinS.min};
-    auto EoutS2 = csg_tree::edge(EinS.min, edge.max);
 
     return {{EinS},
-            {EoutS1, EoutS2},
             edge};
 }
 

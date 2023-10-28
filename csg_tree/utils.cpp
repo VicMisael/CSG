@@ -53,7 +53,7 @@ csg_tree::utils::combine_classification(const csg_tree::classification &left, co
         }
             break;
     }
-
+    return {combinedInEdges, left.getEdge()};
 }
 
 

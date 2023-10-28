@@ -27,8 +27,10 @@ namespace csg_tree {
 
     class classification {
     public:
-        classification(const std::vector<edge> &einS, const std::vector<edge> &eoutS, edge E);
+        classification(const std::vector<edge> &einS, edge E);
         [[nodiscard]] std::vector<edge> getInEdges() const { return EinS; }
+
+        const edge &getEdge() const;
 
     private:
         std::vector<edge> EinS;
