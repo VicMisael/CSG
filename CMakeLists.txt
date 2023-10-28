@@ -34,6 +34,11 @@ add_executable(CSG main.cpp
         objects/rt_utils.h
 )
 
+include_directories(
+    ${CMAKE_SOURCE_DIR}/csg_tree
+    ${CMAKE_SOURCE_DIR}/objects
+)
+
 target_link_libraries(${PROJECT_NAME} glm::glm)
 target_link_libraries(${PROJECT_NAME} RayTracer_redone)
 set_property(TARGET ${PROJECT_NAME} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
@@ -42,7 +47,6 @@ if (MSVC)
     set(CMAKE_CXX_FLAGS_RELEASE "/O2 ")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/O2")
 endif (MSVC)
-if (UNIX)
-    set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -mavx2 -ffast-math")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-Ofast -mavx2 -og -ffast-math")
-endif (UNIX)
+set(CMAKE_CXX_FLAGS_RELEASE "-O2 -mavx2 -ffast-math")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -mavx2 -g -ffast-math")
+set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -ffast-math")

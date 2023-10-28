@@ -92,7 +92,37 @@ namespace Raytracer {
 
         auto *drawcanvas = new imagecanvas(w, h, std::move(filename));
 
-        constexpr int32_t recursion_depth_limit = 2;
+        constexpr int32_t recursion_depth_limit = 3;
+
+        Scene scene(selectedWorld, drawcanvas);
+        //auto cam = std::make_shared<Camera>(Point3(690, 710, 180), Point3(40, 30, 105), Vector3(0, 1, 0));
+
+        auto t1 = std::chrono::high_resolution_clock::now();
+        scene.render(recursion_depth_limit, sampler);
+
+        auto t2 = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double, std::milli> ms_double = t2 - t1;
+        const auto seconds = ms_double.count() / 1000;
+
+        scene.draw();
+
+        std::cout << " Took";
+        std::cout << seconds << "s" << std::endl;
+
+
+    }
+
+    void render4(std::shared_ptr<VirtualObject> object, std::string filename, const uint32_t w, const uint32_t h,const uint32_t samples) {
+
+
+        const auto sampler = generateSampler(samples);
+
+        auto selectedWorld = worlds::buildingsScene3(object);
+
+
+        auto *drawcanvas = new imagecanvas(w, h, std::move(filename));
+
+        constexpr int32_t recursion_depth_limit = 3;
 
         Scene scene(selectedWorld, drawcanvas);
         //auto cam = std::make_shared<Camera>(Point3(690, 710, 180), Point3(40, 30, 105), Vector3(0, 1, 0));
