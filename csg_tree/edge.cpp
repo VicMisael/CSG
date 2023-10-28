@@ -3,6 +3,7 @@
 //
 
 #include "edge.h"
+#include <algorithm>
 
 bool isPointCBeforeD(const csg_tree::edge E, const glm::vec3 &C, const glm::vec3 &D) {
     auto A = E.min;

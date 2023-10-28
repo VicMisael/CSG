@@ -4,6 +4,7 @@
 
 #include "boolean_operation_node.h"
 #include "utils.h"
+#include <algorithm>
 
 namespace csg_tree {
 
