@@ -92,8 +92,6 @@ csg_tree::classification block::classify(csg_tree::edge edge) {
 
     if (::intersects(ray, t_min, t_max, min, max)) {
         auto EinS = csg_tree::edge{edge.min + t_min * toMax, edge.min + t_max * toMax};
-        auto EoutS1 = csg_tree::edge{edge.min, EinS.min};
-        auto EoutS2 = csg_tree::edge(EinS.min, edge.max);
         return {{EinS},
                 edge};
     }

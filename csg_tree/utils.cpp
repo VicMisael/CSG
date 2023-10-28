@@ -1,6 +1,7 @@
 //
 // Created by misae on 25/10/2023.
 //
+#include <algorithm>
 #include "utils.h"
 
 csg_tree::edge csg_tree::utils::from_ray(const Ray &ray) {
