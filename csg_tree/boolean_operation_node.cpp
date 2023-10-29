@@ -125,7 +125,7 @@ namespace csg_tree {
     }
 
 
-    std::vector<rt_utils::csg_tree_intersection> csg_tree::boolean_operation_node::intersects(const Ray &ray) {
+    std::vector<rt_utils::csg_tree_intersection> csg_tree::boolean_operation_node::intersects(const Ray &ray) const {
         std::vector<rt_utils::csg_tree_intersection> leftIntersections = this->left->intersects(ray);
         std::vector<rt_utils::csg_tree_intersection> rightIntersections = this->right->intersects(ray);
 

@@ -43,9 +43,6 @@ std::vector<rt_utils::csg_tree_intersection> sphere::intersects(const Ray &ray) 
     const float t2 = (-b - sqrtf(disc)) / (2.0f * a);
     const float closest = std::min(t1, t2);
     const float exit = std::max(t1, t2);
-//    const Vector3 closestPoint = (ray.point_at(closest));
-//    const Vector3 normal = normalize(closestPoint - center);
-    //const Vector3 normal= (origin_minus_center + closest * ray_direction) / radius;
     const auto closestPoint = ray.point_at(closest);
     const auto furthestPoint = ray.point_at(exit);
     return {{closest, closestPoint,  glm::normalize(closestPoint - center),  this->material, true},

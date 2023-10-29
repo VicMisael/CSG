@@ -28,7 +28,7 @@ void imagecanvas::write_pixel(const uint16_t x, const uint16_t y, const ColorRGB
 
 #endif
     float progress = static_cast<float>((y * this->width + x)) / totalPixels;
-    drawBar(progress);
+    //drawBar(progress);
     this->rgba[y * this->width + x] = colorrgba.toRgba().rgba;
 }
 

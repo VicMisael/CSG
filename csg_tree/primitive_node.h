@@ -19,7 +19,7 @@ namespace csg_tree {
 
         [[nodiscard]] const classification classify(edge _edge) const override;
 
-        std::vector<rt_utils::csg_tree_intersection> intersects(const Ray &ray) override;
+        std::vector<rt_utils::csg_tree_intersection>intersects(const Ray &ray) const override;
 
     private:
         std::shared_ptr<base_primitive> primitive;

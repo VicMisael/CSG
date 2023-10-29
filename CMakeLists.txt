@@ -5,6 +5,10 @@ find_package(glm REQUIRED)
 add_subdirectory(strippedRayTracer)
 set(CMAKE_CXX_STANDARD 23)
 
+include_directories(csg_tree)
+include_directories(objects)
+
+
 add_executable(CSG main.cpp
         csg_tree/node.cpp
         csg_tree/node.h
@@ -44,6 +48,7 @@ target_link_libraries(${PROJECT_NAME} RayTracer_redone)
 set_property(TARGET ${PROJECT_NAME} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
 if (MSVC)
     target_link_options(${PROJECT_NAME} PUBLIC "/INCREMENTAL")
+    target_compile_options(${PROJECT_NAME} PUBLIC "/arch:AVX")
     set(CMAKE_CXX_FLAGS_RELEASE "/O2 ")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/O2")
 endif (MSVC)

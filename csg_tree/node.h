@@ -15,7 +15,7 @@ namespace csg_tree {
 
         [[nodiscard]] virtual const classification classify(const edge _edge) const = 0;
 
-        virtual std::vector<rt_utils::csg_tree_intersection> intersects(const Ray &ray) = 0;
+        virtual std::vector<rt_utils::csg_tree_intersection> intersects(const Ray &ray) const = 0;
     };
 
     class with_children : public node {

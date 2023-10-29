@@ -14,7 +14,7 @@ namespace csg_tree {
         return primitive->classify(_edge);
     }
 
-    std::vector<rt_utils::csg_tree_intersection> primitive_node::intersects(const Ray &ray) {
+    std::vector<rt_utils::csg_tree_intersection> primitive_node::intersects(const Ray &ray) const {
         return primitive->intersects(ray);
     }
 } // csg_tree
