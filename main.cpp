@@ -7,7 +7,7 @@
 #include "csg_tree/boolean_operation_node.h"
 
 int main() {
-    const auto bloco = std::make_shared<block>(glm::vec3(0, 10, 15), 45);
+    const auto bloco = std::make_shared<block>(glm::vec3(0, 45, 15), 45);
     auto primitiveNode = std::make_shared<csg_tree::primitive_node>(bloco);
     auto raiz = std::make_shared<csg_tree::root>(primitiveNode);
 
