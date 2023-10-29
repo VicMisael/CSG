@@ -28,8 +28,6 @@ namespace csg_tree {
                 j++;
             }
         }
-
-        // Append the rest
         while (i < leftIntersections.size()) {
             result.push_back(leftIntersections[i]);
             i++;

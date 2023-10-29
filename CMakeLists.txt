@@ -3,7 +3,7 @@ project(CSG)
 
 find_package(glm REQUIRED)
 add_subdirectory(strippedRayTracer)
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 17)
 
 include_directories(csg_tree)
 include_directories(objects)
