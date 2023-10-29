@@ -14,16 +14,22 @@
 
 class base_primitive {
 public:
+
     virtual csg_tree::classification classify(csg_tree::edge edge) = 0;
 
     virtual std::vector<rt_utils::csg_tree_intersection> intersects(const Ray &ray) const = 0;
 
     virtual void transform(Matrix4x4 m) {};
 
+    rt_utils::primitive_type get_type();
+
 
 protected:
 
-    base_primitive() : material(std::make_shared<Phong>(ColorVec(0.5, 0.5, 0.5), 1, 1, 25)) {};
+    rt_utils::primitive_type type = rt_utils::NONE;
+
+    explicit base_primitive(const rt_utils::primitive_type type = rt_utils::NONE) : material(
+            std::make_shared<Phong>(ColorVec(0.5, 0.5, 0.5), 1, 1, 25)), type(type) {};
 
     std::shared_ptr<Phong> material;
 };

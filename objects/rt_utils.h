@@ -11,12 +11,20 @@
 #include "../strippedRayTracer/RayTracerRedone/tracer/scene/materials/Material.h"
 
 namespace rt_utils {
+    enum primitive_type {
+        NONE,
+        BLOCK,
+        SPHERE,
+
+    };
+
     struct csg_tree_intersection {
         float t;
         glm::vec3 hit;
         glm::vec3 normal;
         std::shared_ptr<Material> material;
         bool entry = false;
+        primitive_type type = NONE;
     };
 };
 

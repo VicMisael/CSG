@@ -78,9 +78,10 @@ std::vector<rt_utils::csg_tree_intersection> block::intersects(const Ray &ray) c
 
     const auto entry = ray.point_at(t_min);
     const auto exit = ray.point_at(t_max);
-    return {{t_min, entry, getNormal(entry, min, max), this->material, true},
-            {t_max, exit,  getNormal(exit, min, max),  this->material, false}
-    };
+    return {
+            {t_min, entry, getNormal(entry, min, max), this->material, true,  this->type},
+            {t_max, exit,  getNormal(exit, min, max),  this->material, false, this->type}
+        };
 }
 
 csg_tree::classification block::classify(csg_tree::edge edge) {

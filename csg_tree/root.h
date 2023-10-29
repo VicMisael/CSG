@@ -12,7 +12,7 @@ namespace csg_tree {
 
     class root : public VirtualObject {
     public:
-        explicit root(const std::shared_ptr<node> &rootNode);
+        explicit root(const std::shared_ptr<node> &rootNode, bool color_object_types = false);
 
         classification classify(csg_tree::edge edge);
 
@@ -22,6 +22,7 @@ namespace csg_tree {
 
     private:
         std::shared_ptr<node> root_node;
+        bool color_object_types;
 
     };
 

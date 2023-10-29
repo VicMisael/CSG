@@ -6,7 +6,8 @@
 #include <glm/exponential.hpp>
 #include "sphere.h"
 
-sphere::sphere(const glm::vec3 &center, float radius) : center(center), radius(radius) {}
+sphere::sphere(const glm::vec3 &center, float radius) : center(center), radius(radius),
+                                                        base_primitive(rt_utils::SPHERE) {}
 
 static std::tuple<float, float> get_sphere_uv(const Point3 p) {
     // p: a given point on the sphere of radius one, centered at the origin.
@@ -45,8 +46,8 @@ std::vector<rt_utils::csg_tree_intersection> sphere::intersects(const Ray &ray) 
     const float exit = std::max(t1, t2);
     const auto closestPoint = ray.point_at(closest);
     const auto furthestPoint = ray.point_at(exit);
-    return {{closest, closestPoint,  glm::normalize(closestPoint - center),  this->material, true},
-            {exit,    furthestPoint, glm::normalize(furthestPoint - center), this->material, false}};
+    return {{closest, closestPoint,  glm::normalize(closestPoint - center),  this->material, true,  this->type},
+            {exit,    furthestPoint, glm::normalize(furthestPoint - center), this->material, false, this->type}};
 }
 
 

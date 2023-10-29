@@ -4,6 +4,9 @@
 
 #include "root.h"
 
+const auto RED = std::make_shared<Phong>(ColorVec(1, 0.2, 0.2), 1, 1, 25);
+const auto BLUE = std::make_shared<Phong>(ColorVec(0.2, 0.2, 1), 1, 1, 25);
+const auto GREY = std::make_shared<Phong>(ColorVec(0.5, 0.5, 0.5), 1, 1, 25);
 namespace csg_tree {
     classification root::classify(csg_tree::edge edge) {
         return this->root_node->classify(edge);
@@ -11,24 +14,30 @@ namespace csg_tree {
 
     std::optional<intersectionRec> root::intersects(const Ray &ray) const {
         auto intersects = this->root_node->intersects(ray);
-        auto isEntry = [](rt_utils::csg_tree_intersection &a) {
-            return a.entry;
-        };
-
         if (intersects.empty()) {
             return {};
         }
         const auto result = intersects[0];
-        return intersectionRec{result.t, result.hit, result.normal, result.material};
-//        if (auto it = std::find_if(begin(intersects), end(intersects), isEntry); it != std::end(intersects)) {
-//            const auto result = std::find_if(intersects.begin(), intersects.end(), isEntry);
-//            return intersectionRec{result->t, result->hit, result->normal, result->material};
-//        }
-//        return {};
+        if (color_object_types) {
+            auto material = GREY;
 
+            switch (result.type) {
+                case rt_utils::BLOCK:
+                    material = RED;
+                    break;
+                case rt_utils::SPHERE:
+                    material = BLUE;
+                    break;
+            }
+
+            return intersectionRec{result.t, result.hit, result.normal, material};
+        }
+        return intersectionRec{result.t, result.hit, result.normal, result.material};
     }
 
-    root::root(const std::shared_ptr<node> &rootNode) : root_node(rootNode) {}
+    root::root(const std::shared_ptr<node> &rootNode, bool color_object_types) : root_node(rootNode),
+                                                                                 color_object_types(
+                                                                                         color_object_types) {}
 
     float root::getArea() const {
         return 0;

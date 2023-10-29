@@ -3,3 +3,7 @@
 //
 
 #include "base_primitive.h"
+
+rt_utils::primitive_type base_primitive::get_type() {
+    return this->type;
+}
