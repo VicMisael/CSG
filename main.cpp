@@ -11,7 +11,7 @@ int main() {
     auto primitiveNode = std::make_shared<csg_tree::primitive_node>(bloco);
     auto raiz = std::make_shared<csg_tree::root>(primitiveNode);
 
-    Raytracer::render1(raiz, "Teste1", 1000, 1000, 5);
+    //Raytracer::render1(raiz, "Teste1", 1000, 1000, 5);
 
     const auto esfera = std::make_shared<sphere>(glm::vec3(0, 30, 15), 65);
     auto primitiveNode1 = std::make_shared<csg_tree::primitive_node>(esfera);
@@ -39,7 +39,9 @@ int main() {
             csg_tree::boolean_operation_node::csg_difference(primitiveNode, primitiveNode2));
 
     auto raiz5 = std::make_shared<csg_tree::root>(differenceNode);
-    Raytracer::render4(raiz5, "difference", 800, 800, 20);
+    Raytracer::render3(raiz5, "difference", 1000, 1000, 20);
+    Raytracer::render4(raiz5, "difference2", 1000, 1000, 20);
+    Raytracer::render5(raiz5, "difference3", 1000, 1000, 20);
 
 
     return 0;
