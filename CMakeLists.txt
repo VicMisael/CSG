@@ -3,7 +3,7 @@ project(CSG)
 
 find_package(glm REQUIRED)
 add_subdirectory(strippedRayTracer)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 23)
 
 include_directories(csg_tree)
 include_directories(objects)
@@ -38,10 +38,7 @@ add_executable(CSG main.cpp
         objects/rt_utils.h
 )
 
-include_directories(
-    ${CMAKE_SOURCE_DIR}/csg_tree
-    ${CMAKE_SOURCE_DIR}/objects
-)
+
 
 target_link_libraries(${PROJECT_NAME} glm::glm)
 target_link_libraries(${PROJECT_NAME} RayTracer_redone)
@@ -52,6 +49,6 @@ if (MSVC)
     set(CMAKE_CXX_FLAGS_RELEASE "/O2 ")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/O2")
 endif (MSVC)
-set(CMAKE_CXX_FLAGS_RELEASE "-O2 -mavx2 -ffast-math")
+set(CMAKE_CXX_FLAGS_RELEASE "-O2 -Wall -march=native -ffast-math")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -mavx2 -g -ffast-math")
 set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -ffast-math")
