@@ -1,6 +1,5 @@
 // RayTracerRedone.cpp : Este arquivo contém a função 'main'. A execução do programa começa e termina ali.
 //
-#pragma once
 
 #include <iostream>
 
@@ -24,9 +23,6 @@ namespace Raytracer {
 
         const auto sampler = generateSampler(samples);
 
-//    std::shared_ptr<VirtualObject> object = std::make_shared<Ball>(Point3(0, 0, 0), 50,
-//                                                                   std::make_shared<Phong>(ColorVec(0.5, 0.5, 0.5), 1,
-//                                                                                           1, 25));
         auto selectedWorld = worlds::buildingsScene(object);
 
 
@@ -92,7 +88,7 @@ namespace Raytracer {
 
         auto *drawcanvas = new imagecanvas(w, h, std::move(filename));
 
-        constexpr int32_t recursion_depth_limit = 5;
+        constexpr int32_t recursion_depth_limit = 6;
 
         Scene scene(selectedWorld, drawcanvas);
         //auto cam = std::make_shared<Camera>(Point3(690, 710, 180), Point3(40, 30, 105), Vector3(0, 1, 0));
