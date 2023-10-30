@@ -327,7 +327,7 @@ namespace worlds {
         //objects.push_back(light3);
         //arealights.push_back(std::make_shared<AreaLight>(light2));
         //arealights.push_back(std::make_shared<AreaLight>(light3));
-        lights.push_back(std::make_shared<PointLight>(Point3(-5900, 1690, -10090), Constants::pi * 102 , ColorVec(1, 1, 1)));
+        lights.push_back(std::make_shared<PointLight>(Point3(-5900, 1690, -10090), Constants::pi * 200 , ColorVec(1, 1, 1)));
 
 
         auto world = World(vp, objects, lights, AmbientLight(0, ColorVec(1, 1, 1)), ColorVec(0.1, 0.1, 0.4), true);
