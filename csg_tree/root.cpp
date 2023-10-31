@@ -6,6 +6,7 @@
 
 const auto RED = std::make_shared<Phong>(ColorVec(1, 0.2, 0.2), 1, 1, 25);
 const auto BLUE = std::make_shared<Phong>(ColorVec(0.2, 0.2, 1), 1, 1, 25);
+const auto GREEN = std::make_shared<Phong>(ColorVec(0.2, 1, 0.2), 1, 1, 25);
 const auto GREY = std::make_shared<Phong>(ColorVec(0.5, 0.5, 0.5), 1, 1, 25);
 namespace csg_tree {
     classification root::classify(csg_tree::edge edge) {
@@ -28,6 +29,12 @@ namespace csg_tree {
                 case rt_utils::SPHERE:
                     material = BLUE;
                     break;
+                case rt_utils::CYLINDER:
+                    material = GREEN;
+                    break;
+                case rt_utils::NONE:
+                    break;
+
             }
 
             return intersectionRec{result.t, result.hit, result.normal, material};

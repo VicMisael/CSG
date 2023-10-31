@@ -15,6 +15,7 @@ namespace rt_utils {
         NONE,
         BLOCK,
         SPHERE,
+        CYLINDER
 
     };
 

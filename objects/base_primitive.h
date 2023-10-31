@@ -15,7 +15,7 @@
 class base_primitive {
 public:
 
-    virtual csg_tree::classification classify(csg_tree::edge edge) = 0;
+    virtual csg_tree::classification classify(csg_tree::edge edge) const = 0;
 
     virtual std::vector<rt_utils::csg_tree_intersection> intersects(const Ray &ray) const = 0;
 

@@ -14,7 +14,7 @@ private:
     glm::vec3 max;
 public:
 
-    block(const glm::vec3 &min, const glm::vec3 &max) : min(min), max(max), base_primitive(rt_utils::BLOCK) {}
+    block(const glm::vec3 &min, const glm::vec3 &max) : base_primitive(rt_utils::BLOCK), min(min), max(max) {}
 
     block(const glm::vec3 center, float length) : min(center - glm::vec3(length)),
                                                   max(center + glm::vec3(length)),
@@ -24,7 +24,7 @@ public:
 
     [[nodiscard]] std::vector<rt_utils::csg_tree_intersection> intersects(const Ray &ray) const override;
 
-    csg_tree::classification classify(csg_tree::edge edge) override;
+    csg_tree::classification classify(csg_tree::edge edge)  const override;
 
     void transform(Matrix4x4 m) override;
 

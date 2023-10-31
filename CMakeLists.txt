@@ -36,6 +36,8 @@ add_executable(CSG main.cpp
         objects/rt_utils.cpp
         objects/rt_utils.h
         objects/rt_utils.h
+        objects/cylinder.cpp
+        objects/cylinder.h
 )
 
 

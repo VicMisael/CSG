@@ -84,7 +84,7 @@ std::vector<rt_utils::csg_tree_intersection> block::intersects(const Ray &ray) c
         };
 }
 
-csg_tree::classification block::classify(csg_tree::edge edge) {
+csg_tree::classification block::classify(csg_tree::edge edge) const{
     float t_max = glm::length(edge.max - edge.min);
     float t_min = 0;
     auto toMax = glm::normalize(edge.max - edge.min);

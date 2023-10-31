@@ -5,6 +5,7 @@
 #include "objects/block.h"
 #include "csg_tree/boolean_operation_node.h"
 #include "strippedRayTracer/RayTracerRedone/RayTracerRedone.cpp"
+#include "cylinder.h"
 
 
 std::shared_ptr<csg_tree::node> generateObject2() {
@@ -60,6 +61,16 @@ std::shared_ptr<csg_tree::node> generateObject3() {
     return unionDiffIntersection;
 }
 
+std::shared_ptr<csg_tree::node> generateObject4() {
+    const auto cyl = std::make_shared<cylinder>(glm::vec3(0, 45, 15), 20, 105);
+    const auto cylNode = std::make_shared<csg_tree::primitive_node>(cyl);
+
+    auto unionDiffIntersection = std::make_shared<csg_tree::boolean_operation_node>(
+            csg_tree::boolean_operation_node::csg_union(generateObject(), cylNode)
+    );
+    return unionDiffIntersection;
+}
+
 
 int main() {
 
@@ -95,11 +106,11 @@ int main() {
 //    Raytracer::render5(raiz5, "difference3", 1000, 1000, 5);
 
 
-    auto raiz6 = std::make_shared<csg_tree::root>(generateObject(), true);
+    auto raiz6 = std::make_shared<csg_tree::root>(generateObject4(), false);
     auto raiz7 = std::make_shared<csg_tree::root>(generateObject3(), false);
 
 //    Raytracer::render3(raiz6, "teste", 2000, 2000, 1);
-    Raytracer::render3(raiz6, "teste", 1350, 1350, 20);
+    Raytracer::render3(raiz6, "teste", 550, 550, 200);
 
 
     return 0;

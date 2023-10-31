@@ -15,7 +15,7 @@ public:
 
     [[nodiscard]] std::vector<rt_utils::csg_tree_intersection> intersects(const Ray &ray) const override;
 
-    csg_tree::classification classify(const csg_tree::edge edge) override;
+    csg_tree::classification classify(const csg_tree::edge edge) const override;
 
     void transform(Matrix4x4 m) override;
 

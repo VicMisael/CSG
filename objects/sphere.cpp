@@ -51,7 +51,7 @@ std::vector<rt_utils::csg_tree_intersection> sphere::intersects(const Ray &ray) 
 }
 
 
-csg_tree::classification sphere::classify(const csg_tree::edge edge) {
+csg_tree::classification sphere::classify(const csg_tree::edge edge) const {
 
     const Vector3 ray_direction = glm::normalize(edge.max - edge.min);
 
