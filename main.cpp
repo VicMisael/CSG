@@ -96,7 +96,7 @@ std::shared_ptr<csg_tree::node> generateObject4() {
     return unionDiffIntersection;
 }
 
-std::shared_ptr<csg_tree::node> footballBall() {
+std::shared_ptr<csg_tree::node> diffBall() {
     const auto esfera2 = std::make_shared<sphere>(glm::vec3(10, 30, 15), 65);
     auto primitiveNode2 = std::make_shared<csg_tree::primitive_node>(esfera2);
     const auto esfera = std::make_shared<sphere>(glm::vec3(32.5, 30, 15), 65);;
@@ -104,6 +104,18 @@ std::shared_ptr<csg_tree::node> footballBall() {
 
     auto diffIntersection = std::make_shared<csg_tree::boolean_operation_node>(
             csg_tree::boolean_operation_node::csg_difference(primitiveNode2, primitiveNode1));
+
+    return diffIntersection;
+}
+
+std::shared_ptr<csg_tree::node> footballBall() {
+    const auto esfera2 = std::make_shared<sphere>(glm::vec3(10, 30, 15), 65);
+    auto primitiveNode2 = std::make_shared<csg_tree::primitive_node>(esfera2);
+    const auto esfera = std::make_shared<sphere>(glm::vec3(32.5, 30, 15), 65);;
+    auto primitiveNode1 = std::make_shared<csg_tree::primitive_node>(esfera);
+
+    auto diffIntersection = std::make_shared<csg_tree::boolean_operation_node>(
+        csg_tree::boolean_operation_node::csg_intersection(primitiveNode2, primitiveNode1));
 
     return diffIntersection;
 }
@@ -117,7 +129,7 @@ int main() {
 
     Raytracer::render1(raiz, "Teste1", 500, 500, 115);
 
-    const auto esfera = std::make_shared<sphere>(glm::vec3(0, 30, 15), 165);
+    const auto esfera = std::make_shared<sphere>(glm::vec3(0, 30, 15), 65);
     auto primitiveNode1 = std::make_shared<csg_tree::primitive_node>(esfera);
     auto raiz2 = std::make_shared<csg_tree::root>(primitiveNode1);
 
@@ -159,8 +171,12 @@ int main() {
 
     Raytracer::render3(football, "football", 500, 500, 150);
 
+    auto diffBall = std::make_shared<csg_tree::root>(footballBall());
+
+    Raytracer::render3(diffBall, "diffBall", 500, 500, 150);
+
     auto bagunca = std::make_shared<csg_tree::root>(generateObject3WithMaterial());
-    Raytracer::render1(bagunca, "bagunca", 500, 500, 50);
+    Raytracer::render1(bagunca, "bagunca", 500, 500, 150);
 
 
     return 0;
