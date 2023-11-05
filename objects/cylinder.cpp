@@ -8,7 +8,6 @@ csg_tree::classification cylinder::classify(csg_tree::edge edge) const{
 
     glm::vec3 d = edge.max - edge.min; // direction vector
     glm::vec3 o = edge.min - center;   // translated origin
-
     float a = d.x * d.x + d.z * d.z;
     float b = 2.0 * (o.x * d.x + o.z * d.z);
     float c = o.x * o.x + o.z * o.z - r*r;

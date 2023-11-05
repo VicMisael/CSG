@@ -19,6 +19,6 @@ BumpMapping::shade(const World &world, const Ray &ray, const intersectionRec &in
     normal = utility::ONBTransform(normal,bumpMapping);
     const auto intersection = intersectionRec{intersectionIn.tmin, intersectionIn.hit_point, normal, intersectionIn.material,
                                         intersectionIn.u, intersectionIn.v};
-    return this->material->shade(world, ray, intersection, depth);
+    return this->material->shade(world, ray, intersection, depth-1);
 
 }

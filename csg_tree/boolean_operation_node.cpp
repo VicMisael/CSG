@@ -127,8 +127,8 @@ namespace csg_tree {
         std::vector<rt_utils::csg_tree_intersection> leftIntersections = this->left->intersects(ray);
         std::vector<rt_utils::csg_tree_intersection> rightIntersections = this->right->intersects(ray);
 
-        std::sort(leftIntersections.begin(), leftIntersections.end(), compareDist);
-        std::sort(rightIntersections.begin(), rightIntersections.end(), compareDist);
+        //std::sort(leftIntersections.begin(), leftIntersections.end(), compareDist);
+        //std::sort(rightIntersections.begin(), rightIntersections.end(), compareDist);
 
         std::vector<rt_utils::csg_tree_intersection> result;
         switch (this->operation) {
