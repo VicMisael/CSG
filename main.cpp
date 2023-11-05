@@ -171,9 +171,9 @@ int main() {
 
     Raytracer::render3(football, "football", 500, 500, 150);
 
-    auto diffBall = std::make_shared<csg_tree::root>(footballBall());
+    auto diff = std::make_shared<csg_tree::root>(diffBall());
 
-    Raytracer::render3(diffBall, "diffBall", 500, 500, 150);
+    Raytracer::render3(diff, "diffBall", 500, 500, 150);
 
     auto bagunca = std::make_shared<csg_tree::root>(generateObject3WithMaterial());
     Raytracer::render1(bagunca, "bagunca", 500, 500, 150);

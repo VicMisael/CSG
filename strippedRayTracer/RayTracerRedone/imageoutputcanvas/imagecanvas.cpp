@@ -22,17 +22,31 @@ void drawBar(float progress) {
 
 }
 
-
+int decil = 0;
 void imagecanvas::write_pixel(const uint16_t x, const uint16_t y, const ColorRGBA colorrgba) {
 #ifndef _WIN32
-
-#endif
     float progress = static_cast<float>((y * this->width + x)) / totalPixels;
     drawBar(progress);
     this->rgba[y * this->width + x] = colorrgba.toRgba().rgba;
+#else
+    float progress = static_cast<float>((y * this->width + x)) / totalPixels;
+    bool showFirst = false;
+    int intprog=progress * 100;
+
+    if (intprog / 10 == decil) {
+        decil++;
+        drawBar(progress);
+    }
+    this->rgba[y * this->width + x] = colorrgba.toRgba().rgba;
+
+#endif
+
 }
 
 void imagecanvas::draw() {
+#ifdef _WIN32
+    decil = 0;
+#endif
     std::cout << std::endl;
     int width = (int) this->width;
     int height = (int) this->height;
